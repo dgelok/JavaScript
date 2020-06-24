@@ -96,8 +96,170 @@ function printBox (h, w) {
 
 }
 
+//7
+function printBanner (myStr) {
+    var len = myStr.length;
+    var edge = ""
+    for (var i = 0; i < len + 4; i++) {
+        edge += "*";
+    }
+    console.log(edge);
+    console.log("* " + myStr + " *")
+    console.log(edge);
+
+}
 
 
+//8 
+function leetspeak (myStr) {
+    var final = ""
+    for (var i = 0; i < myStr.length; i++) {
+        switch (myStr[i]) {
+            case "A":
+                final += "4";
+                break;
+            case "E":
+                final += "3";
+                break;
+            case "G":
+                final += "6";
+                break;
+            case "T":
+                final += "7";
+                break;
+            case "I":
+                final += "1";
+                break;
+            case "O":
+                final += "0";
+                break;
+            case "S":
+                final += "5";
+                break;
+            case "a":
+                final += "4";
+                break;
+            case "e":
+                final += "3";
+                break;
+            case "g":
+                final += "6";
+                break;
+            case "t":
+                final += "7";
+                break;
+            case "i":
+                final += "1";
+                break;
+            case "o":
+                final += "0";
+                break;
+            case "s":
+                final += "5";
+                break;
+            default:
+                final += myStr[i];
+                break;
+        }
+    }
+    console.log(final)
+}
+
+//9
+function longLongVowels(str) {
+    var result = "";
+    for (var i = 0; i < str.length; i++) {
+        if (str[i] == str[i+1]) {
+            switch (str[i]) {
+                case "a":
+                    result += "aaa";
+                    break;
+                case "e":
+                    result += "eee";
+                    break;
+                case "i":
+                    result += "i";
+                    break;
+                case "o":
+                    result += "ooo";
+                    break;
+                case "u":
+                    result += "uuu";
+                    break;
+                default:
+                    result += str[i]
+                    break;
+            } 
+        } else {
+            result += str[i];
+        }
+    }
+    console.log(result)
+}
+
+//10
+function positiveNumbers (myArr) {
+    var answer = [];
+    var index = 0;
+    while (index < myArr.length) {
+        if (myArr[index] >= 0) {
+            answer.push(myArr[index])
+        }
+        
+        index++
+    }
+    console.log(answer)
+}
+
+//bonus1
+
+function caesar (str, offset) {
+    var alpha = "abcdefghijklmnopqrstuvwxyz";
+    var code = "";
+    for (var i = 0; i < str.length; i++) {
+        if (alpha.includes(str[i])) {
+            var myIndex = alpha.indexOf(str[i])
+            myIndex += offset;
+            if (myIndex >= 26) {
+                myIndex -= 26;
+            } else if (myIndex < 0) {
+                myIndex += 26
+            }
+            code += alpha[myIndex]
+        } else {
+            code += str[i]
+        }
+    }
+    console.log(code)
+
+}
+
+//bonus2 
+function decode (str) {
+    var alpha = "abcdefghijklmnopqrstuvwxyz";
+    for (var i = 0; i < 26; i++) {
+        var code = "";
+        for (var j = 0; j < str.length; j++) {
+            if (alpha.includes(str[j])) {
+                var index = alpha.indexOf(str[j])
+                index += i;
+                if (index >= 26) {
+                    index -= 26;
+                }
+                code += alpha[index];
+            } else {
+                code += str[j]
+            }
+        }
+        console.log(code);
+    }
+}
+decode("travhf jvgubhg rqhpngvba vf yvxr fvyire va gur zvar")
+// caesar("genius without education is like silver in the mine", 13)
+// positiveNumbers([4, -10, 3, -4, -2, 1, 2, -34])
+// longLongVowels("good cheese man")
+// leetspeak("leeet")
+// printBanner("H")
 // printBox(19, 6)
 // printSquare(9);
 // printNumbersWhile(7, 18)
