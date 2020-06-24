@@ -7,7 +7,6 @@ function madlib (name, subj) {
 }
 
 
-
 //2
 function tipAmount (bill, level) {
     var total = bill
@@ -50,6 +49,7 @@ function tipAmount2 (bill, level) {
     return total;
 }
 
+// console.log(tipAmount2(100, "fair"))
 
 //4
 function printNumbersFor (start, end) {
@@ -93,8 +93,12 @@ function printBox (h, w) {
         console.log("*" + filler + "*")
     }
     console.log(edge)
-
 }
+
+// printBox(4,6);
+// function printBoxProper (h, w) {
+//     var edge = ""
+// }
 
 //7
 function printBanner (myStr) {
@@ -113,29 +117,30 @@ function printBanner (myStr) {
 //8 
 function leetspeak (myStr) {
     var final = ""
-    for (var i = 0; i < myStr.length; i++) {
-        switch (myStr[i]) {
-            case "A":
-                final += "4";
-                break;
-            case "E":
-                final += "3";
-                break;
-            case "G":
-                final += "6";
-                break;
-            case "T":
-                final += "7";
-                break;
-            case "I":
-                final += "1";
-                break;
-            case "O":
-                final += "0";
-                break;
-            case "S":
-                final += "5";
-                break;
+    var lStr = myStr.toLowerCase()
+    for (var i = 0; i < lStr.length; i++) {
+        switch (lStr[i]) {
+            // case "A":
+            //     final += "4";
+            //     break;
+            // case "E":
+            //     final += "3";
+            //     break;
+            // case "G":
+            //     final += "6";
+            //     break;
+            // case "T":
+            //     final += "7";
+            //     break;
+            // case "I":
+            //     final += "1";
+            //     break;
+            // case "O":
+            //     final += "0";
+            //     break;
+            // case "S":
+            //     final += "5";
+            //     break;
             case "a":
                 final += "4";
                 break;
@@ -158,12 +163,15 @@ function leetspeak (myStr) {
                 final += "5";
                 break;
             default:
-                final += myStr[i];
+                final += lStr[i];
                 break;
         }
     }
     console.log(final)
 }
+
+// leetspeak("Leet")
+
 
 //9
 function longLongVowels(str) {
@@ -178,7 +186,7 @@ function longLongVowels(str) {
                     result += "eee";
                     break;
                 case "i":
-                    result += "i";
+                    result += "iii";
                     break;
                 case "o":
                     result += "ooo";
@@ -253,7 +261,7 @@ function decode (str) {
         }
         console.log(code);
     }
-}
+} 
 decode("travhf jvgubhg rqhpngvba vf yvxr fvyire va gur zvar")
 // caesar("genius without education is like silver in the mine", 13)
 // positiveNumbers([4, -10, 3, -4, -2, 1, 2, -34])
