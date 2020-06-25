@@ -25,7 +25,7 @@ newC(headerRow, headerRowCol);
 
 var maintitle = document.createElement("h1")
 maintitle.setAttribute("class", "text-white")
-maintitle.textContent = "High on Coding"
+maintitle.textContent = "HighOnCoding"
 newC(headerRowCol, maintitle);
 
 var links = document.createElement("ul")
