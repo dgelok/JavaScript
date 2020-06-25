@@ -61,7 +61,11 @@
 
 // Given an array of strings such the array of names given in the previous problem, 
 // sort them by alphabetically order.
-var people = [ 'Dom', 'Lyn', 'Kirk', 'Autumn', 'Trista', 'Jesslyn', 'Kevin', 'John', 'Eli', 'Juan', 'Robert', 'Keyur', 'Jason', 'Che', 'Ben' ]; 
+// var people = [ 'Dom', 'Lyn', 'Kirk', 'Autumn', 'Trista', 'Jesslyn', 'Kevin', 'John', 'Eli', 'Juan', 'Robert', 'Keyur', 'Jason', 'Che', 'Ben' ]; 
 
-var sorted = people.sort()
-console.log(sorted)
+// var sorted = people.sort()
+// console.log(sorted)
+
+
+// Sort the same array, but not by alphabetically order, but by how long each name is, 
+// shortest name first.
