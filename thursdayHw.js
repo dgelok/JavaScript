@@ -69,3 +69,114 @@
 
 // Sort the same array, but not by alphabetically order, but by how long each name is, 
 // shortest name first.
+// var people = [ 'Dom', 'Lyn', 'Kirk', 'Autumn', 'Trista', 'Jesslyn', 'Kevin', 'John', 'Eli', 'Juan', 'Robert', 'Keyur', 'Jason', 'Che', 'Ben' ]; 
+
+// people.sort(function(a, b){
+//     return a.length - b.length
+// })
+// console.log(people)
+
+
+// ************************************************************************ //
+// ************************************************************************ //
+// ************************************************************************ //
+// ************************************************************************ //
+// Sort the array by the sum of each inner array. For the above example, the respective sums for 
+// each inner array is 8, 20, and 9. Therefore, the solution should be:
+// [ [1, 3, 4],
+// [3, 6],
+// [2, 4, 6, 8] ] 
+// var arr = [
+//     [1, 3, 4],
+//     [2, 4, 6, 8],
+//     [3, 6] ]; 
+
+// arr.sort(function ())
+
+
+// Given this function:
+// Use the call3Times function to print "Hello, world!" 3 times.
+
+// function call3Times(fun) { fun(); fun(); fun(); }
+// var hello = function () {console.log("Hello, world!")}
+// call3Times(hello)
+
+// You will write a function callNTimes that takes two arguments: times as a number, and fun as a 
+// function. It will call that function for that many times. Example:
+// > callNTimes(5, hello)
+// Hello, world!
+// Hello, world!
+// Hello, world!
+// Hello, world!
+// Hello, world! 
+// You are allowed to use a loop in the implementation of callNTimes.
+
+// function callNTimes(times, fun) {
+//     for (var i = 0; i < times; i++) {
+//         fun()
+//     }
+// }
+
+// var hello = function () {console.log("Hello, world!")}
+// callNTimes(9, hello)
+
+
+
+// Write a function sum that takes an array of numbers as argument and returns the sum of those 
+// numbers. Use the reduce method to do this.
+// var array1 = [1, 2, 3];
+
+// // var reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+// console.log(array1.reduce((sum, current) => sum + current));
+
+
+// ************************************************************************ //
+// ************************************************************************ //
+// ************************************************************************ //
+// ************************************************************************ //
+// Write a function acronym that takes an array of words as argument and returns the acronym 
+// of the words. Use the reduce method to do this.
+
+// myArr = ["north", "american", "saxophone", "alliance"]
+// var reducer = (accumulator, currentValue) => accumulator + currentValue[0]
+// var answer = myArr.reduce(reducer)
+// console.log(answer)
+
+// ************************************************************************ //
+// ************************************************************************ //
+// ************************************************************************ //
+// ************************************************************************ //
+// Implement your own custom forEach function which takes two arguments: an array arr and a function 
+// fun. It will call fun passing each item in arr to fun as the first argument. Example:
+// var arr = [
+//     { name: 'Bob' },
+//     { name:'Alice' },
+//     { name:'Joe' } ];
+// forEach(arr, function(person) {
+//        console.log('Hello, ' + person.name + '!');
+//     }); 
+// You can use a loop in the implementation of this function.
+
+// function forEach(arr, function(person)) {
+
+// }
+
+
+
+// function cipher(text) { 
+//     var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(''); 
+//     var result = '';
+//     for (var i = 0; i < text.length; i++) {
+//         var chr = text[i];
+//         var idx = alphabet.indexOf(chr.toUpperCase());
+//         var newIdx = idx + 13;
+//         if (newIdx >= alphabet.length) {
+//             newIdx -= 26;
+//         }
+//         result += alphabet[newIdx];
+//     }
+//     return result;
+// } // You can assume that the text is only one word, all letters are capitalized, and the offset is always 13 
+// var encrypted = cipher('GENIUS');
+// console.log(encrypted);
