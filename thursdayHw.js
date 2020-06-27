@@ -9,9 +9,9 @@
 
 // Write a function which takes an array of numbers as input and returns a new array containing 
 // only the even numbers in the given array.
-// var nums = [45, -123, 3, 0.44, -34, 5, 6, 6, -234]
+var nums = [45, -123, 3, 0.44, -34, 5, 6, 6, -234]
 
-// var evens = nums.filter((num) => num%2 == 0)
+var evens = nums.filter(num => num%2 == 0)
 // console.log(evens)
 
 
@@ -19,35 +19,33 @@
 // result of squaring each of the numbers in the given array by two. Example: squareTheNumbers([1, 2, 3]) 
 // should give [1, 4, 9].
 
-// var nums = [45, -123, 3, 0.44, -34, 5, 6, 6, -234]
+var nums = [45, -123, 3, 0.44, -34, 5, 6, 6, -234]
 
-// var squares = nums.map((num) => num*num)
+var squares = nums.map(num => num*num)
 // console.log(squares)
 
 
 // takes cities as input and returns a new array containing the cities whose temperature is cooler 
 // than 70 degrees.
-// var cities = [
-//     { name: 'Los Angeles', temperature: 60.0},
-//     { name: 'Atlanta', temperature: 52.0 },
-//     { name: 'Detroit', temperature: 48.0 },
-//     { name: 'New York', temperature: 80.0 } ];
+var cities = [
+    { name: 'Los Angeles', temperature: 60.0},
+    { name: 'Atlanta', temperature: 52.0 },
+    { name: 'Detroit', temperature: 48.0 },
+    { name: 'New York', temperature: 80.0 } ];
 
-// var cool = cities.filter((city) => {
-//     return city.temperature < 70
-// })
+var cool = cities.filter((city) => {
+    return city.temperature < 70
+})
 // console.log(cool)
 
 // Write a function which takes an array of city objects like the above problem as input and 
 // returns an array of the cities names.
-// var cities = [
-//     { name: 'Los Angeles', temperature: 60.0},
-//     { name: 'Atlanta', temperature: 52.0 },
-//     { name: 'Detroit', temperature: 48.0 },
-//     { name: 'New York', temperature: 80.0 } ];
-// var names = cities.map((city) => {
-//     return city.name
-// })
+var cities = [
+    { name: 'Los Angeles', temperature: 60.0},
+    { name: 'Atlanta', temperature: 52.0 },
+    { name: 'Detroit', temperature: 48.0 },
+    { name: 'New York', temperature: 80.0 } ];
+var names = cities.map(city => city.name)
 // console.log(names)
 
 
@@ -61,19 +59,19 @@
 
 // Given an array of strings such the array of names given in the previous problem, 
 // sort them by alphabetically order.
-// var people = [ 'Dom', 'Lyn', 'Kirk', 'Autumn', 'Trista', 'Jesslyn', 'Kevin', 'John', 'Eli', 'Juan', 'Robert', 'Keyur', 'Jason', 'Che', 'Ben' ]; 
+var people = [ 'Dom', 'Lyn', 'Kirk', 'Autumn', 'Trista', 'Jesslyn', 'Kevin', 'John', 'Eli', 'Juan', 'Robert', 'Keyur', 'Jason', 'Che', 'Ben' ]; 
 
-// var sorted = people.sort()
+var sorted = people.sort()
 // console.log(sorted)
 
 
 // Sort the same array, but not by alphabetically order, but by how long each name is, 
 // shortest name first.
-// var people = [ 'Dom', 'Lyn', 'Kirk', 'Autumn', 'Trista', 'Jesslyn', 'Kevin', 'John', 'Eli', 'Juan', 'Robert', 'Keyur', 'Jason', 'Che', 'Ben' ]; 
+var people = [ 'Dom', 'Lyn', 'Kirk', 'Autumn', 'Trista', 'Jesslyn', 'Kevin', 'John', 'Eli', 'Juan', 'Robert', 'Keyur', 'Jason', 'Che', 'Ben' ]; 
 
-// people.sort(function(a, b){
-//     return a.length - b.length
-// })
+people.sort(function(a, b){
+    return a.length - b.length
+})
 // console.log(people)
 
 
@@ -91,14 +89,17 @@
 //     [2, 4, 6, 8],
 //     [3, 6] ]; 
 
+// arr.sort(function(a,b)){
+//     var sumA = a.reduce(sum, current) => sum + current
+// }
 // arr.sort(function ())
 
 
 // Given this function:
 // Use the call3Times function to print "Hello, world!" 3 times.
 
-// function call3Times(fun) { fun(); fun(); fun(); }
-// var hello = function () {console.log("Hello, world!")}
+function call3Times(fun) { fun(); fun(); fun(); }
+var hello = function () {console.log("Hello, world!")}
 // call3Times(hello)
 
 // You will write a function callNTimes that takes two arguments: times as a number, and fun as a 
@@ -111,13 +112,13 @@
 // Hello, world! 
 // You are allowed to use a loop in the implementation of callNTimes.
 
-// function callNTimes(times, fun) {
-//     for (var i = 0; i < times; i++) {
-//         fun()
-//     }
-// }
+function callNTimes(times, fun) {
+    for (var i = 0; i < times; i++) {
+        fun()
+    }
+}
 
-// var hello = function () {console.log("Hello, world!")}
+var hello = function () {console.log("Hello, world!")}
 // callNTimes(9, hello)
 
 
@@ -140,7 +141,7 @@
 
 // myArr = ["north", "american", "saxophone", "alliance"]
 // var reducer = (accumulator, currentValue) => accumulator + currentValue[0]
-// var answer = myArr.reduce(reducer)
+// var answer = myArr.reduce(reducer, "")
 // console.log(answer)
 
 // ************************************************************************ //
@@ -149,19 +150,28 @@
 // ************************************************************************ //
 // Implement your own custom forEach function which takes two arguments: an array arr and a function 
 // fun. It will call fun passing each item in arr to fun as the first argument. Example:
-// var arr = [
-//     { name: 'Bob' },
-//     { name:'Alice' },
-//     { name:'Joe' } ];
+
 // forEach(arr, function(person) {
 //        console.log('Hello, ' + person.name + '!');
 //     }); 
 // You can use a loop in the implementation of this function.
 
-// function forEach(arr, function(person)) {
+var arr = [
+    { name: 'Bob' },
+    { name:'Alice' },
+    { name:'Joe' } ];
 
-// }
+function sayHi (name) {
+    console.log(`Hello ${name}!`)
+}
 
+function forEach (arr, fun) {
+    for (var i = 0; i <arr.length; i++) {
+        fun(arr[i].name)
+    }
+}
+
+forEach(arr, sayHi)
 
 
 // function cipher(text) { 
@@ -180,3 +190,16 @@
 // } // You can assume that the text is only one word, all letters are capitalized, and the offset is always 13 
 // var encrypted = cipher('GENIUS');
 // console.log(encrypted);
+
+
+
+// Implement your own custom map function which takes two arguments: an array arr and a function 
+// fun. It will return a new array, with each of its results being the result of calling fun with each 
+// array element.
+
+// var arr = [1,2,3,4,5,6,7]
+// function mapMe (arr, fun) {
+//     var result = arr.map(fun)
+
+
+// }
