@@ -1,30 +1,34 @@
 // Generate a deck of cards
-var cards = [];
-var suits = ['hearts', 'diamonds', 'spades', 'clubs']
-var values = [2,3,4,5,6,7,8,9,10]
-var lvalues = ["ace", "jack", "queen", "king"]
-for (let suit in suits) {
-    for (let value in values) {
-        var newCard = {
-            "points": values[value],
-            "suit": suits[suit],
-            "src": `images/${values[value]}${suits[suit][0]}.jpg`
-        }
-        cards.push(newCard)
-    }
-}
 
-for (let suit in suits) {
-    for (let value in lvalues) {
-        var newCard = {
-            "points": lvalues[value],
-            "suit": suits[suit],
-            "src": `images/${lvalues[value][0]}${suits[suit][0]}.jpg`
-        }
-        cards.push(newCard)
-    }
-}
 
+function createCards () {
+    var cards = [];
+    var suits = ['hearts', 'diamonds', 'spades', 'clubs']
+    var values = [2,3,4,5,6,7,8,9,10]
+    var lvalues = ["ace", "jack", "queen", "king"]
+    for (let suit in suits) {
+        for (let value in values) {
+            var newCard = {
+                "points": values[value],
+                "suit": suits[suit],
+                "src": `images/${values[value]}${suits[suit][0]}.jpg`
+            }
+            cards.push(newCard)
+        }
+    }
+
+    for (let suit in suits) {
+        for (let value in lvalues) {
+            var newCard = {
+                "points": lvalues[value],
+                "suit": suits[suit],
+                "src": `images/${lvalues[value][0]}${suits[suit][0]}.jpg`
+            }
+            cards.push(newCard)
+        }
+    }
+    return cards
+}
 //shuffle the cards
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -38,7 +42,7 @@ function shuffleArray(array) {
 
 
 //generate a new deck, player hand, and dealer hand. 
-var newDeck = shuffleArray(cards)
+var newDeck = shuffleArray(createCards())
 var dealerHand = [];
 var playerHand = [];
 var dHand = document.getElementById("dealer-hand");
@@ -146,11 +150,13 @@ function calcPoints (hand) {
     return score;
 }
 
-// document.getElementById("reset-button").addEventListener("click", function(){
-    // newDeck = shuffleArray(cards);
-    // dHand.innerHTML = "";
-    // pHand.innerHTML = "";
-    // playerHand = [];
-    // dealerHand = [];
-    // dp.textContent = "";
-    // pScore = 0;
+document.getElementById("reset-button").addEventListener("click", function(){
+    newDeck = shuffleArray(createCards());
+    dHand.innerHTML = "";
+    pHand.innerHTML = "";
+    playerHand = [];
+    dealerHand = [];
+    dp.textContent = "";
+    pScore = "";
+    pp.textContent = pScore;
+})
