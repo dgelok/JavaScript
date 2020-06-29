@@ -43,7 +43,8 @@ var dealerHand = [];
 var playerHand = [];
 var dHand = document.getElementById("dealer-hand");
 var pHand = document.getElementById("player-hand");
-
+var pp = document.getElementById("player-points");
+var dp = document.getElementById("dealer-points")
 
 // Deal a new game
 document.getElementById("deal-button").addEventListener("click", function(){
@@ -51,9 +52,7 @@ document.getElementById("deal-button").addEventListener("click", function(){
     pHand.innerHTML = "";
     playerHand = [];
     dealerHand = [];
-    // var newDeck = shuffleArray(cards);
-    // var dealerHand = [];
-    // var playerHand = [];
+    dp.textContent = "";
 
     dealerHand[0] = newDeck.pop();
     var dCard1 = document.createElement('img');
@@ -75,24 +74,53 @@ document.getElementById("deal-button").addEventListener("click", function(){
     pCard2.src = playerHand[1].src;
     pHand.appendChild(pCard2)
 
-    calcPoints(playerHand)
+    pp.innerHTML = calcPoints(playerHand)
+    
 
 
 });
+
+// Hit button functionality
 document.getElementById("hit-button").addEventListener("click", function(){
-    // pHand = [];
     var aCard = newDeck.pop();
     playerHand.push(aCard)
     var cardElement = document.createElement('img')
-    // var playerHandElement = document.getElementById("player-hand")
     cardElement.src = aCard.src
     pHand.appendChild(cardElement)
-    calcPoints(playerHand);
-    
+    pp.innerHTML = calcPoints(playerHand);
+
+    bust(pp.innerHTML, "You have")
 
 });
+
+
+// Stand button Functionality
 document.getElementById("stand-button").addEventListener("click", function(){
-    //write "Stand" logic here
+    var dScore = calcPoints(dealerHand);
+    while (dScore < 17) {
+        var aCard = newDeck.pop();
+        dealerHand.push(aCard)
+        var cardElement = document.createElement('img')
+        cardElement.src = aCard.src
+        dHand.appendChild(cardElement)
+        dScore = calcPoints(dealerHand)
+    }
+    // console.log(calcPoints(dealerHand))
+    dp.textContent = calcPoints(dealerHand)
+    bust(dScore, "The dealer has")
+
+
+
+    // dCard1.src = dealerHand[0].src;
+
+    // while (dScore <= 17) {
+    //     var aCard = newDeck.pop();
+    //     dealerHand.push(aCard)
+    //     var cardElement = document.createElement('img')
+    //     cardElement.src = aCard.src
+    //     dHand.appendChild(cardElement)
+    //     dp.innerHTML = calcPoints(dealerHand)
+    // }
 });
 
 // calcuate points
@@ -112,7 +140,12 @@ function calcPoints (hand) {
                 break;
         }
     }
-    var pp = document.getElementById("player-points");
-    pp.innerHTML = score;
+    return score;
+}
 
+// bust function
+function bust(score, who) {
+    if (score > 21) {
+        alert(`Bust! ${who} ${score} points.`)
+    }
 }
