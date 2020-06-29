@@ -64,6 +64,7 @@ class Player {
         this.cash = 500;
         this.bet = 0;
         this.points = 0;
+        this.setup()
     }
 
     plus10() {
@@ -71,7 +72,7 @@ class Player {
         if (this.bet > this.cash) {
             this.bet = this.cash
         }
-        up10.textContent = this.bet;
+        bet.textContent = this.bet;
     }
 
     minus10() {
@@ -79,7 +80,12 @@ class Player {
         if (this.bet < 0) {
             this.bet = 0
         }
-        down10.textContent = this.bet;
+        bet.textContent = this.bet;
+    }
+
+    setup() {
+        cash.textContent = this.cash;
+        bet.textContent = this.bet;
     }
 }
 
