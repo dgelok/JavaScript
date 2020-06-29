@@ -140,7 +140,6 @@ document.getElementById("hit-button").addEventListener("click", function(){
             pScore = 0;
         }
     }
-
 });
 
 // Stand button Functionality
@@ -203,6 +202,10 @@ document.getElementById("reset-button").addEventListener("click", function(){
     dp.textContent = "";
     pScore = "";
     pp.textContent = pScore;
+    bet = 0;
+    pBet.textContent = bet;
+    cash = 400;
+    pCash.textContent = cash;
 })
 
 // bet +10 functionality
