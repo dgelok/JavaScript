@@ -13,11 +13,11 @@ let cash = document.querySelector("#cash");
 class Deck {
     constructor() {
         this.deck = [];
-        this.reset();
+        this.create();
         this.shuffle();
     }
 
-    reset() {
+    create() {
         this.deck = [];
         const suits = ["Hearts", "Spades", "Clubs", "Diamonds"];
         const values = [2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -58,30 +58,72 @@ class Deck {
     }
 }
 
-class Bet {
+class Player {
     constructor() {
-        this.money = 500;
+        this.hand = [];
+        this.cash = 500;
         this.bet = 0;
+        this.points = 0;
     }
-    betWin() {
-        this.money += 2 * this.bet;
-        this.bet = 0;
-        betD.textContent = this.bet;
-        moneyD.textContent = this.money;
+
+    plus10() {
+        this.bet += 10;
+        if (this.bet > this.cash) {
+            this.bet = this.cash
+        }
+        up10.textContent = this.bet;
     }
-    betLoss() {
-        this.bet = 0;
-        betD.textContent = this.bet;
-        moneyD.textContent = this.money;
-    }
-    betDraw() {
-        this.money += this.bet;
-        this.bet = 0;
-        betD.textContent = this.bet;
-        moneyD.textContent = this.money;
-    }
-    betButtonReset() {
-        up10.disabled = false;
+
+    minus10() {
+        this.bet -= 10;
+        if (this.bet < 0) {
+            this.bet = 0
+        }
+        down10.textContent = this.bet;
     }
 }
 
+class Dealer {
+    constructor() {
+        this.hand = [];
+        this.points = 0;
+    }
+}
+
+var newDeck = new Deck();
+var me = new Player();
+var myDealer = new Dealer();
+
+document.getElementById("deal-button").addEventListener("click", function(){
+    var a = newDeck.deck.pop()
+    me.hand.push(a)
+    var newCard = document.createElement('img');
+    newCard.src = a.imgFile;
+    playerHand.appendChild(newCard);
+    var b = newDeck.deck.pop()
+    me.hand.push(b)
+    var newCard = document.createElement('img');
+    newCard.src = b.imgFile;
+    playerHand.appendChild(newCard);
+})
+
+
+document.getElementById("hit-button").addEventListener("click", function(){
+
+})
+document.getElementById("stand-button").addEventListener("click", function(){
+
+})
+
+document.getElementById("Add10").addEventListener("click", function(){
+    me.plus10();
+    console.log(me.bet)
+})
+document.getElementById("Minus10").addEventListener("click", function(){
+    me.minus10();
+    console.log(me.bet)
+})
+document.getElementById("reset-button").addEventListener("click", function(){
+})
+document.getElementById("deal-button").addEventListener("click", function(){
+})
