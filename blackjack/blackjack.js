@@ -112,9 +112,7 @@ document.getElementById("stand-button").addEventListener("click", function(){
         dHand.appendChild(cardElement)
         dScore = calcPoints(dealerHand)
     }
-    // console.log(calcPoints(dealerHand))
     dp.textContent = dScore
-    // console.log(dCard1.src)
     dHand.firstChild.src = dealerHand[0].src
 
     if (dScore > 21) {
@@ -126,19 +124,6 @@ document.getElementById("stand-button").addEventListener("click", function(){
     } else {
         alert(`You win with ${pScore} points!`)
     }
-
-
-
-    // dCard1.src = dealerHand[0].src;
-
-    // while (dScore <= 17) {
-    //     var aCard = newDeck.pop();
-    //     dealerHand.push(aCard)
-    //     var cardElement = document.createElement('img')
-    //     cardElement.src = aCard.src
-    //     dHand.appendChild(cardElement)
-    //     dp.innerHTML = calcPoints(dealerHand)
-    // }
 });
 
 // calcuate points
@@ -161,9 +146,11 @@ function calcPoints (hand) {
     return score;
 }
 
-// // bust function
-// function bust(score, who) {
-//     if (score > 21) {
-//         alert(`Bust! ${who} ${score} points.`)
-//     }
-// }
+// document.getElementById("reset-button").addEventListener("click", function(){
+    // newDeck = shuffleArray(cards);
+    // dHand.innerHTML = "";
+    // pHand.innerHTML = "";
+    // playerHand = [];
+    // dealerHand = [];
+    // dp.textContent = "";
+    // pScore = 0;
