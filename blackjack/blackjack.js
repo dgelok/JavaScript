@@ -51,55 +51,78 @@ var pp = document.getElementById("player-points");
 var dp = document.getElementById("dealer-points")
 var pScore = 0;
 var dScore = 0;
+var bet = 0;
+var cash = 400;
+var pCash = document.getElementById("cash")
+var pBet = document.getElementById("bet")
+pCash.textContent = cash;
+pBet.textContent = bet;
+var gameOn = false;
 
 // Deal a new game
 document.getElementById("deal-button").addEventListener("click", function(){
-    dHand.innerHTML = "";
-    pHand.innerHTML = "";
-    playerHand = [];
-    dealerHand = [];
-    dp.textContent = "";
-    pScore = 0;
+    if (!gameOn) {
+        gameOn = true;
+        dHand.innerHTML = "";
+        pHand.innerHTML = "";
+        playerHand = [];
+        dealerHand = [];
+        dp.textContent = "";
+        pScore = 0;
+        
 
-    dealerHand[0] = newDeck.pop();
-    var dCard1 = document.createElement('img');
-    dCard1.src = 'images/Red_back.jpg';
-    dHand.appendChild(dCard1)
+        dealerHand[0] = newDeck.pop();
+        var dCard1 = document.createElement('img');
+        dCard1.src = 'images/Red_back.jpg';
+        dHand.appendChild(dCard1)
 
-    playerHand[0] = newDeck.pop();
-    var pCard1 = document.createElement('img');
-    pCard1.src = playerHand[0].src;
-    pHand.appendChild(pCard1)
+        playerHand[0] = newDeck.pop();
+        var pCard1 = document.createElement('img');
+        pCard1.src = playerHand[0].src;
+        pHand.appendChild(pCard1)
 
-    dealerHand[1] = newDeck.pop();
-    var dCard2 = document.createElement('img');
-    dCard2.src = dealerHand[1].src;
-    dHand.appendChild(dCard2)
+        dealerHand[1] = newDeck.pop();
+        var dCard2 = document.createElement('img');
+        dCard2.src = dealerHand[1].src;
+        dHand.appendChild(dCard2)
 
-    playerHand[1] = newDeck.pop();
-    var pCard2 = document.createElement('img');
-    pCard2.src = playerHand[1].src;
-    pHand.appendChild(pCard2)
+        playerHand[1] = newDeck.pop();
+        var pCard2 = document.createElement('img');
+        pCard2.src = playerHand[1].src;
+        pHand.appendChild(pCard2)
 
-    pScore = calcPoints(playerHand)
-    pp.innerHTML = pScore;
-    
+        pScore = calcPoints(playerHand)
+        pp.innerHTML = pScore;
+    }
 
 
 });
 
 // Hit button functionality
 document.getElementById("hit-button").addEventListener("click", function(){
-    var aCard = newDeck.pop();
-    playerHand.push(aCard)
-    var cardElement = document.createElement('img')
-    cardElement.src = aCard.src
-    pHand.appendChild(cardElement)
-    pScore = calcPoints(playerHand)
-    pp.innerHTML = pScore;
+    if (gameOn) {
+        var aCard = newDeck.pop();
+        playerHand.push(aCard)
+        var cardElement = document.createElement('img')
+        cardElement.src = aCard.src
+        pHand.appendChild(cardElement)
+        pScore = calcPoints(playerHand)
+        pp.innerHTML = pScore;
 
-    if (pScore > 21) {
-        alert(`Busted! You have ${pScore} points.`)
+        if (pScore > 21) {
+            gameOn = false;
+            alert(`Busted! You have ${pScore} points.`)
+            cash -= bet;
+            pCash.textContent = cash;
+            bet = 0;
+            pBet.textContent = bet;
+            dHand.innerHTML = "";
+            pHand.innerHTML = "";
+            playerHand = [];
+            dealerHand = [];
+            dp.textContent = "";
+            pScore = 0;
+        }
     }
 
 });
@@ -107,28 +130,53 @@ document.getElementById("hit-button").addEventListener("click", function(){
 
 // Stand button Functionality
 document.getElementById("stand-button").addEventListener("click", function(){
-    dScore = calcPoints(dealerHand);
-    while (dScore < 17) {
-        var aCard = newDeck.pop();
-        dealerHand.push(aCard)
-        var cardElement = document.createElement('img')
-        cardElement.src = aCard.src
-        dHand.appendChild(cardElement)
-        dScore = calcPoints(dealerHand)
-    }
-    dp.textContent = dScore
-    dHand.firstChild.src = dealerHand[0].src
+    if (gameOn) {
+        dScore = calcPoints(dealerHand);
+        while (dScore < 17) {
+            var aCard = newDeck.pop();
+            dealerHand.push(aCard)
+            var cardElement = document.createElement('img')
+            cardElement.src = aCard.src
+            dHand.appendChild(cardElement)
+            dScore = calcPoints(dealerHand)
+        }
+        dp.textContent = dScore
+        dHand.firstChild.src = dealerHand[0].src
 
-    if (dScore > 21) {
-        alert(`You win! Dealer busts with ${dScore} points.`)
-    } else if (dScore == pScore) {
-        alert(`You lose! Dealer wins with tied points.`)
-    } else if (dScore > pScore) {
-        alert(`You lose! Dealer wins with ${dScore} points.`)
-    } else {
-        alert(`You win with ${pScore} points!`)
+        if (dScore > 21) {
+            alert(`You win! Dealer busts with ${dScore} points.`)
+            cash += bet;
+            pCash.textContent = cash;
+            bet = 0;
+            pBet.textContent = bet;
+        } else if (dScore == pScore) {
+            alert(`You lose! Dealer wins with tied points.`)
+            cash -= bet;
+            pCash.textContent = cash;
+            bet = 0;
+            pBet.textContent = bet;
+        } else if (dScore > pScore) {
+            alert(`You lose! Dealer wins with ${dScore} points.`)
+            cash -= bet;
+            pCash.textContent = cash;
+            bet = 0;
+            pBet.textContent = bet;
+        } else {
+            alert(`You win with ${pScore} points!`)
+            cash += bet;
+            pCash.textContent = cash;
+            bet = 0;
+            pBet.textContent = bet;
+        }
+        dHand.innerHTML = "";
+        pHand.innerHTML = "";
+        playerHand = [];
+        dealerHand = [];
+        dp.textContent = "";
+        pScore = 0;
     }
-});
+    gameOn = false;
+})
 
 // calcuate points
 function calcPoints (hand) {
@@ -159,4 +207,24 @@ document.getElementById("reset-button").addEventListener("click", function(){
     dp.textContent = "";
     pScore = "";
     pp.textContent = pScore;
+})
+
+document.getElementById("Add10").addEventListener("click", function(){
+    if (!gameOn) {
+        bet += 10;
+        if (bet > cash) {
+            bet = cash
+        }
+        pBet.textContent = bet
+    }
+})
+
+document.getElementById("Minus10").addEventListener("click", function(){
+    if (!gameOn) {
+        bet -= 10;
+        if (bet < 0) {
+            bet = 0;
+        }
+        pBet.textContent = bet
+    }
 })
