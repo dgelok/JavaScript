@@ -45,6 +45,8 @@ var dHand = document.getElementById("dealer-hand");
 var pHand = document.getElementById("player-hand");
 var pp = document.getElementById("player-points");
 var dp = document.getElementById("dealer-points")
+var pScore = 0;
+var dScore = 0;
 
 // Deal a new game
 document.getElementById("deal-button").addEventListener("click", function(){
@@ -53,6 +55,7 @@ document.getElementById("deal-button").addEventListener("click", function(){
     playerHand = [];
     dealerHand = [];
     dp.textContent = "";
+    pScore = 0;
 
     dealerHand[0] = newDeck.pop();
     var dCard1 = document.createElement('img');
@@ -74,7 +77,8 @@ document.getElementById("deal-button").addEventListener("click", function(){
     pCard2.src = playerHand[1].src;
     pHand.appendChild(pCard2)
 
-    pp.innerHTML = calcPoints(playerHand)
+    pScore = calcPoints(playerHand)
+    pp.innerHTML = pScore;
     
 
 
@@ -87,16 +91,19 @@ document.getElementById("hit-button").addEventListener("click", function(){
     var cardElement = document.createElement('img')
     cardElement.src = aCard.src
     pHand.appendChild(cardElement)
-    pp.innerHTML = calcPoints(playerHand);
+    pScore = calcPoints(playerHand)
+    pp.innerHTML = pScore;
 
-    bust(pp.innerHTML, "You have")
+    if (pScore > 21) {
+        alert(`Busted! You have ${pScore} points.`)
+    }
 
 });
 
 
 // Stand button Functionality
 document.getElementById("stand-button").addEventListener("click", function(){
-    var dScore = calcPoints(dealerHand);
+    dScore = calcPoints(dealerHand);
     while (dScore < 17) {
         var aCard = newDeck.pop();
         dealerHand.push(aCard)
@@ -106,8 +113,19 @@ document.getElementById("stand-button").addEventListener("click", function(){
         dScore = calcPoints(dealerHand)
     }
     // console.log(calcPoints(dealerHand))
-    dp.textContent = calcPoints(dealerHand)
-    bust(dScore, "The dealer has")
+    dp.textContent = dScore
+    // console.log(dCard1.src)
+    dHand.firstChild.src = dealerHand[0].src
+
+    if (dScore > 21) {
+        alert(`You win! Dealer busts with ${dScore} points.`)
+    } else if (dScore == pScore) {
+        alert(`You lose! Dealer wins with tied points.`)
+    } else if (dScore > pScore) {
+        alert(`You lose! Dealer wins with ${dScore} points.`)
+    } else {
+        alert(`You win with ${pScore} points!`)
+    }
 
 
 
@@ -143,9 +161,9 @@ function calcPoints (hand) {
     return score;
 }
 
-// bust function
-function bust(score, who) {
-    if (score > 21) {
-        alert(`Bust! ${who} ${score} points.`)
-    }
-}
+// // bust function
+// function bust(score, who) {
+//     if (score > 21) {
+//         alert(`Bust! ${who} ${score} points.`)
+//     }
+// }
