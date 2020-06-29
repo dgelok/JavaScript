@@ -41,18 +41,19 @@ function shuffleArray(array) {
 var newDeck = shuffleArray(cards)
 var dealerHand = [];
 var playerHand = [];
-
+var dHand = document.getElementById("dealer-hand");
+var pHand = document.getElementById("player-hand");
 
 
 // Deal a new game
 document.getElementById("deal-button").addEventListener("click", function(){
-    var dHand = document.getElementById("dealer-hand");
-    var pHand = document.getElementById("player-hand");
     dHand.innerHTML = "";
     pHand.innerHTML = "";
-    var newDeck = shuffleArray(cards);
-    var dealerHand = [];
-    var playerHand = [];
+    playerHand = [];
+    dealerHand = [];
+    // var newDeck = shuffleArray(cards);
+    // var dealerHand = [];
+    // var playerHand = [];
 
     dealerHand[0] = newDeck.pop();
     var dCard1 = document.createElement('img');
@@ -79,11 +80,13 @@ document.getElementById("deal-button").addEventListener("click", function(){
 
 });
 document.getElementById("hit-button").addEventListener("click", function(){
+    // pHand = [];
     var aCard = newDeck.pop();
+    playerHand.push(aCard)
     var cardElement = document.createElement('img')
-    var playerHandElement = document.getElementById("player-hand")
+    // var playerHandElement = document.getElementById("player-hand")
     cardElement.src = aCard.src
-    playerHandElement.appendChild(cardElement)
+    pHand.appendChild(cardElement)
     calcPoints(playerHand);
     
 
