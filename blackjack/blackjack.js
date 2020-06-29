@@ -1,6 +1,4 @@
 // Generate a deck of cards
-
-
 function createCards () {
     var cards = [];
     var suits = ['hearts', 'diamonds', 'spades', 'clubs']
@@ -29,6 +27,7 @@ function createCards () {
     }
     return cards
 }
+
 //shuffle the cards
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -38,6 +37,26 @@ function shuffleArray(array) {
         array[j] = temp;
     }
     return array;
+}
+
+// calcuate points
+function calcPoints (hand) {
+    var score = 0;
+    for (var i = 0; i < hand.length; i++) {
+        var a = hand[i].points;
+        switch (a) {
+            case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: case 10:
+                score += a;
+                break;
+            case "jack": case "queen": case "king":
+                score += 10;
+                break;
+            case "ace":
+                score += 11;
+                break;
+        }
+    }
+    return score;
 }
 
 
@@ -70,7 +89,6 @@ document.getElementById("deal-button").addEventListener("click", function(){
         dp.textContent = "";
         pScore = 0;
         
-
         dealerHand[0] = newDeck.pop();
         var dCard1 = document.createElement('img');
         dCard1.src = 'images/Red_back.jpg';
@@ -94,8 +112,6 @@ document.getElementById("deal-button").addEventListener("click", function(){
         pScore = calcPoints(playerHand)
         pp.innerHTML = pScore;
     }
-
-
 });
 
 // Hit button functionality
@@ -126,7 +142,6 @@ document.getElementById("hit-button").addEventListener("click", function(){
     }
 
 });
-
 
 // Stand button Functionality
 document.getElementById("stand-button").addEventListener("click", function(){
@@ -178,26 +193,7 @@ document.getElementById("stand-button").addEventListener("click", function(){
     gameOn = false;
 })
 
-// calcuate points
-function calcPoints (hand) {
-    var score = 0;
-    for (var i = 0; i < hand.length; i++) {
-        var a = hand[i].points;
-        switch (a) {
-            case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: case 10:
-                score += a;
-                break;
-            case "jack": case "queen": case "king":
-                score += 10;
-                break;
-            case "ace":
-                score += 11;
-                break;
-        }
-    }
-    return score;
-}
-
+// Reset button functionality
 document.getElementById("reset-button").addEventListener("click", function(){
     newDeck = shuffleArray(createCards());
     dHand.innerHTML = "";
@@ -209,6 +205,7 @@ document.getElementById("reset-button").addEventListener("click", function(){
     pp.textContent = pScore;
 })
 
+// bet +10 functionality
 document.getElementById("Add10").addEventListener("click", function(){
     if (!gameOn) {
         bet += 10;
@@ -219,6 +216,7 @@ document.getElementById("Add10").addEventListener("click", function(){
     }
 })
 
+// bet -10 functionality
 document.getElementById("Minus10").addEventListener("click", function(){
     if (!gameOn) {
         bet -= 10;
