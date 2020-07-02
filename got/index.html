@@ -16,6 +16,9 @@
             body{
                 background-image: url("https://cdnb.artstation.com/p/assets/images/images/001/106/105/large/emilio-rodriguez-castillo.jpg?1440174799");
                 background-size: cover;
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
             }
             .blist {
                 background-color:rgb(206, 255, 239)
@@ -41,7 +44,9 @@
                     <button class="btn btn-primary m-2 charButton">Find Characters</button>
                     <button class="btn btn-primary m-2 bookButton">Find Books</button>
                 </div>
-                <ul class="results list-group m-5"><ul>
+                <ul class="results list-group m-5">
+                    <!-- <li class="list-group-item"></li> -->
+                <ul>
             </div>
         </div>
 
@@ -53,51 +58,122 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script>
-            $('.charButton').click((event) => {
-                event.preventDefault();
-                let myURL = `https://www.anapioficeandfire.com/api/characters?page=1&pageSize=50`
-                
-                $.get(myURL)
-                .done(function (chars) {
-                    console.log(chars)
-                    for (let char in chars) {
-                        let name = chars[char].name
-                        if (name != "") {
-                            // let house = chars[char]
-                            let allegiance = chars[char].allegiances[0]
-
-                            $.get(allegiance)
-                            .done(function (all) {
-                                console.log(all.name)
-                                var house = all.name
-                                let mystring = `<li class='list-group-item clist'>${name}${house}</li>`
-                                $('.results').append(mystring)
-                            })
-                            
-
-                        }
-                    }
-                })
-            })
-            
-            //books 
-            $('.bookButton').click((event) => {
-                event.preventDefault();
-                let myURL = `https://www.anapioficeandfire.com/api/books`
-                
-                $.get(myURL)
-                .done(function (books) {
-                    // console.log(books)
-                    for (let book in books) {
-                        let pdate = books[book].released
-                        let date = pdate.slice(0,4)
-                        let mystring = `<li class='list-group-item blist'>${books[book].name}  (${date})</li>`
-                        $('.results').append(mystring) 
-                        
-                    }
-                })
-            })
             
         </script>
+        <script>
+            $(() => {
+
+                var CHARLIST = []
+                var keep = true;
+                var keepgoing = true
+                // var i = 0;
+                // while(keepgoing) {
+                for (let i = 0; i < 50; i++) {
+                    
+                    let myURL = `https://www.anapioficeandfire.com/api/characters?page=${i}&pageSize=50`
+                    $.get(myURL)
+                    .done(function (chars) {
+                        if (chars.length == 0) {
+                            // console.log('false')
+                            // keepgoing = false;
+                            
+                        }
+                        else {
+                            CHARLIST.push(...chars);
+                            // console.log(CHARLIST)
+                        }
+                        
+                    })
+                    .fail(function (error) {
+                        // console.log(error)
+
+                    })
+                }
+            
+                //Characters 
+                $('.charButton').click((event) => {
+                    event.preventDefault();
+                    CHARLIST.sort(function(a, b) {
+                        return parseFloat(a.name) - parseFloat(b.name);
+                    });
+
+                    CHARLIST.sort((a, b) => {
+                        if (a.name < b.name)
+                            return -1;
+                        if (a.name > b.name)
+                            return 1;
+                        return 0;
+                    })
+                    // console.log(`Charlist: ${CHARLIST.length}`)
+
+
+                    let obj = {};
+                    let uChars = [];
+                    for (let i = 0; i < CHARLIST.length; i++) {
+                        if(!obj[CHARLIST[i].name]) {
+                            uChars.push(CHARLIST[i]);
+                            obj[CHARLIST[i].name] = true
+                        }
+                    }
+                    // console.log(`unique: ${uChars.length}`)
+
+                    
+                    $('.results').html("")
+                    for (let char in uChars) {
+                        let charName = uChars[char].name
+                        if (charName.length > 0) {
+                            // console.log(uChars[char])
+                            let charLink = uChars[char].allegiances[0]
+                            let mystring = `<li id='${charLink}' class='list-group-item clist'>${charName}</li>`
+                            $('.results').append(mystring) 
+                        }
+                        
+                    }
+
+                })
+                
+                //books 
+                $('.bookButton').click((event) => {
+                    event.preventDefault();
+                    $('.results').html("")
+                    let myURL = `https://www.anapioficeandfire.com/api/books`
+                    
+                    $.get(myURL)
+                    .done(function (books) {
+                        // console.log(books)
+                        for (let book in books) {
+                            let pdate = books[book].released
+                            let date = pdate.slice(0,4)
+                            let mystring = `<li class='list-group-item blist'>${books[book].name}  (${date})</li>`
+                            $('.results').append(mystring) 
+                            
+                        }
+                    })
+                })
+
+                let title = document.querySelector('ul');
+                title.addEventListener('click', function(e){
+                    // console.log(e.target.innerText)
+                    $.get(e.target.id)
+                    .done(function (obj) {
+                        let name = e.target.innerText
+                        let newString = `${name} - <em>${obj.name}</em>`
+                        // console.log(obj.name)
+                        e.target.innerHTML = newString;
+                        
+                        
+                    })
+                    .fail(function (error) {
+                        let name = e.target.innerText
+                        newString = `${name} - <em>no house affiliation</em>`
+                        e.target.innerHTML = newString
+
+                    })
+                })
+                
+                
+            })
+        </script>
+
     </body>
 </html>
