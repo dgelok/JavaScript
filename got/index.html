@@ -21,7 +21,11 @@
                 background-color:rgb(206, 255, 239)
 
             }
-            
+            .clist {
+                background-color:rgb(255, 210, 206)
+
+            }
+
         </style>
     </head>
     <body>
@@ -54,8 +58,25 @@
                 let myURL = `https://www.anapioficeandfire.com/api/characters?page=1&pageSize=50`
                 
                 $.get(myURL)
-                .done(function (data) {
-                    console.log(data)
+                .done(function (chars) {
+                    console.log(chars)
+                    for (let char in chars) {
+                        let name = chars[char].name
+                        if (name != "") {
+                            // let house = chars[char]
+                            let allegiance = chars[char].allegiances[0]
+
+                            $.get(allegiance)
+                            .done(function (all) {
+                                console.log(all.name)
+                                var house = all.name
+                                let mystring = `<li class='list-group-item clist'>${name}${house}</li>`
+                                $('.results').append(mystring)
+                            })
+                            
+
+                        }
+                    }
                 })
             })
             
@@ -66,7 +87,7 @@
                 
                 $.get(myURL)
                 .done(function (books) {
-                    console.log(books)
+                    // console.log(books)
                     for (let book in books) {
                         let pdate = books[book].released
                         let date = pdate.slice(0,4)
