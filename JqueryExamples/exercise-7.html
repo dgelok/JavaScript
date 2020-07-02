@@ -8,13 +8,43 @@
     /*
     Make a Todo List
 
-    0. Make it so that after entering the task description, in the text field and clicking the "Add Task" button, a new task appears inside the element with the id todo-list.
+    0. Make it so that after entering the task description, in the text field and clicking the "Add 
+    Task" button, a new task appears inside the element with the id todo-list.
     1. the ability to remove tasks (add an x button)
     2. the ability to check off tasks - strikes them out wo removing (add a checkbox)
     3. the ability to delete a task
     4. the ability to edit an existing task
 
     */
+    $(() => {
+        var $input = $("#description")
+        var $addbutton = $('#add-button')
+        var $toDo = $('#todo-list')
+
+        var $items = $(".items")
+
+        $addbutton.click(() => {
+          var $listItem = $input.val()
+          $toDo.append(`<li> <button class="items">&times</button> ${$listItem}</li>`)
+
+        })
+        // var $items = $("items")
+        // $items.click((e) => {
+        //   console.log(e.target)
+        //   e.target.parentNode.remove()
+        // })
+        
+        $toDo.on("click", ".items", (e) => {
+          $(e.target.parentNode).remove()
+        })
+        
+        $toDo.on("click", "li", (e) => {
+          var mytext = e.target.textContent
+          console.log(myText)
+          $(e.target).html = `<input value='${mytext}'>`
+        })
+        
+      })
     </script>
     <style>
     #wrapper {
