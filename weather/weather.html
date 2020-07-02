@@ -8,15 +8,23 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            .content{
+                height: 500px;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
-            <div class="row header d-flex justify-content-center">
-                <div class="col">Enter a city</div>
-            </div>
-            <div class="row">
-                <input type="text" class='search'>
-                <button type="submit" class="btn btn-primary hit">Submit</button>
+            <div class="content shadow p-3 m-5 bg-light rounded">
+                <div class="row header d-flex m-5 justify-content-center">
+                    <div class="">Enter a city</div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <input type="text" class='search'>
+                    <button class="btn btn-primary hit">Submit</button>
+                </div>
+                <div class="row results d-flex justify-content-around m-5"></div>
             </div>
         </div>
         
@@ -29,7 +37,8 @@
         <script>
             let $hit = $('.hit');
             let $search = $('.search');
-            $hit.click(() => {
+            $hit.click((event) => {
+                event.preventDefault();
                 let $val = $search.val().toLowerCase()
                 let myURL = `http://api.openweathermap.org/data/2.5/weather?q=${$val}&APPID=2be1dfbfaef86e604abfd4d7a40b2a52`
                 
@@ -38,17 +47,26 @@
                     let myCity = data.name;
                     let temp = Math.floor((data.main.temp  - 273.15) * 1.8000 + 32.00)
                     let description = data.weather[0].description;
-                    var $cityDiv = $('div')
-                    var $tempDiv = $('div')
-                    var $descriptionDiv = $('div')
-                    $cityDiv.
+                    var $cityDiv = $(`<div>`)
+                    var $tempDiv = $(`<div>`)
+                    var $descriptionDiv = $(`<div>`)
+                    $cityDiv.text(myCity)
+                    $tempDiv.text(temp)
+                    $descriptionDiv.text(description)
+                    
+                    $('.results').html("")
+                    
+                    $('.results').append($cityDiv)
+                    $('.results').append($tempDiv)
+                    $('.results').append($descriptionDiv)
+                    
+                    
 
                 })
-                .then(function (error){
-                    console.log(error)
-                })
-
-                $search.val('')
+                // .then(function (error){
+                //     console.log(error)
+                // })
+                $search.val("")
             })
 
 
