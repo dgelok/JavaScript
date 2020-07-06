@@ -17,7 +17,7 @@ $(function () {
     getNames(pageNum);
 })
 
-$function () {
+$(function () {
     let pageNum = 0;
     function getNames(pageNum) {
         $.get(`https://www.anapioficeandfire.com/api/characters?page=${pageNum}&pageSize=50`)
@@ -32,4 +32,4 @@ $function () {
         })
     }
     getNames(pageNum);
-}
+})
