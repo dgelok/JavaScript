@@ -66,29 +66,47 @@
                 var CHARLIST = []
                 var keep = true;
                 var keepgoing = true
-                // var i = 0;
-                // while(keepgoing) {
-                for (let i = 0; i < 50; i++) {
+                
+                $(function () {
+                    let pageNum = 0;
+                    function getNames(pageNum) {
+                        $.get(`https://www.anapioficeandfire.com/api/characters?page=${pageNum}&pageSize=50`)
+                        .done(function (response) {
+                            CHARLIST.push(...response)
+                            console.log(pageNum)
+                            console.log(response)
+                            if (response.length > 0) {
+                                pageNum++;
+                                getNames(pageNum);
+                            }
+                        })
+                        .fail(function (error) {
+                            console.log(error);
+                        })
+                    }
+                    getNames(pageNum);
+                })
+                // for (let i = 0; i < 50; i++) {
                     
-                    let myURL = `https://www.anapioficeandfire.com/api/characters?page=${i}&pageSize=50`
-                    $.get(myURL)
-                    .done(function (chars) {
-                        if (chars.length == 0) {
-                            // console.log('false')
-                            // keepgoing = false;
+                //     let myURL = `https://www.anapioficeandfire.com/api/characters?page=${i}&pageSize=50`
+                //     $.get(myURL)
+                //     .done(function (chars) {
+                //         if (chars.length == 0) {
+                //             // console.log('false')
+                //             // keepgoing = false;
                             
-                        }
-                        else {
-                            CHARLIST.push(...chars);
-                            // console.log(CHARLIST)
-                        }
+                //         }
+                //         else {
+                //             CHARLIST.push(...chars);
+                //             // console.log(CHARLIST)
+                //         }
                         
-                    })
-                    .fail(function (error) {
-                        // console.log(error)
+                //     })
+                //     .fail(function (error) {
+                //         // console.log(error)
 
-                    })
-                }
+                //     })
+                // }
             
                 //Characters 
                 $('.charButton').click((event) => {
@@ -151,8 +169,7 @@
                     })
                 })
 
-                let title = document.querySelector('ul');
-                title.addEventListener('click', function(e){
+                $('ul').on('click', 'li', function(e){
                     // console.log(e.target.innerText)
                     $.get(e.target.id)
                     .done(function (obj) {
