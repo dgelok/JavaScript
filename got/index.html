@@ -73,8 +73,8 @@
                         $.get(`https://www.anapioficeandfire.com/api/characters?page=${pageNum}&pageSize=50`)
                         .done(function (response) {
                             CHARLIST.push(...response)
-                            console.log(pageNum)
-                            console.log(response)
+                            // console.log(pageNum)
+                            // console.log(response)
                             if (response.length > 0) {
                                 pageNum++;
                                 getNames(pageNum);
