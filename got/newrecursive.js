@@ -48,6 +48,7 @@
 // ******PROMISE.ALL SOLUTION******************
 
 $(()=>{
+
     let fetchArr = [];
     let url = "";
     for (let i = 0; i < 45; i++) {
@@ -67,7 +68,7 @@ $(()=>{
         dataArr.forEach((char)=>{
             charList = [...charList, ...char]
         })
-        console.log(charList)
+        // console.log(charList)
         
         let obj = {};
         let uChars = [];
@@ -77,7 +78,7 @@ $(()=>{
                 obj[charList[i].name] = true
             }
         }
-        console.log(uChars)
+        // console.log(uChars)
 
         uChars.sort(function (a,b) {
             if (a.name < b.name) {
@@ -88,10 +89,52 @@ $(()=>{
             }
             return 0
         })
-        console.log(uChars[40].name)
-        console.log(uChars[41].name)
-        console.log(uChars[42].name)
-        console.log(uChars[43].name)
-        console.log(uChars[44].name)
+        console.log(uChars[840])
+        // console.log(uChars[41].name)
+        // console.log(uChars[42].name)
+        // console.log(uChars[43].name)
+        // console.log(uChars[44].name)
+
+        $('.charButton').click((event)=>{
+            event.preventDefault();
+            $('.results').html("")
+            for (let char in uChars) {
+                let charName = uChars[char].name
+                if (charName.length > 0) {
+                    // console.log(uChars[char])
+                    let charLink = uChars[char].url
+                    let mystring = `<li id='${charLink}' class='list-group-item blist'>${charName}</li>`
+                    $('.results').append(mystring) 
+                }
+            }
+        })
+
+        $('ul').on('click', 'li', function(e){
+            // console.log(e.target.innerText)
+            // console.log(e.target.id)
+            $.get(e.target.id)
+            .done(function (obj) {
+                let name = obj.name
+                console.log(name)
+            //     let newString = `${name} - <em>${obj.name}</em>`
+            //     // console.log(obj.name)
+            //     e.target.innerHTML = newString;
+                
+                
+            })
+            // .fail(function (error) {
+            //     let name = e.target.innerText
+            //     newString = `${name} - <em>no house affiliation</em>`
+            //     e.target.innerHTML = newString
+            // })
+        })
+
+        
     })
+    
+    
+
+    
 })
+
+

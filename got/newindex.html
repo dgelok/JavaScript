@@ -8,10 +8,55 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            .content{
+                padding: 30px;
+            }
+            body{
+                background-image: url("https://cdnb.artstation.com/p/assets/images/images/001/106/105/large/emilio-rodriguez-castillo.jpg?1440174799");
+                background-size: cover;
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+            .blist {
+                background-color:rgb(206, 255, 239)
+
+            }
+            .clist {
+                background-color:rgb(255, 210, 206)
+            }
+            .search {
+                width: 95%;
+                margin: 10px;
+                padding: 1px;
+            }
+            .results {
+                height: 300px;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
-
+            <div class="content p-3 m-5 bg-light rounded">
+                <div class="row header d-flex m-5 justify-content-center">
+                    <div class="display-4">A Search of Fire and Ice</div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    
+                    <button class="btn btn-primary m-2 charButton">Find Characters</button>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-5 bg-secondary align-items-center">
+                        <input type="text" class='search'>
+                        <ul class="results overflow-auto list-group m-1">
+                            <!-- <li class="list-group-item"></li> -->
+                        <ul>
+                    </div>
+                    <div class="col-5 blist"></div>
+                </div>
+                
+            </div>
         </div>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
